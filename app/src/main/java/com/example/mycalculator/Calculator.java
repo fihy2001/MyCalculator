@@ -61,6 +61,8 @@ public class Calculator extends Activity implements View.OnClickListener {
 
         switch(view.getId()){
             case R.id.btnEqual:
+                operatorIsTapped(OPERATOR.EQUAL);
+
                 break;
 
             case R.id.btn0:
@@ -104,6 +106,7 @@ public class Calculator extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btnClear:
+                clearTapped();
                 break;
 
             case R.id.btnPlus:
@@ -140,7 +143,9 @@ public class Calculator extends Activity implements View.OnClickListener {
     }
 
     private void operatorIsTapped(OPERATOR tappedOperator){
-        if(currentOperator != null && currentNumber != ""){
+        if(currentOperator != null){
+            if (currentNumber != ""){
+
             stringNumberAtRight = currentNumber;
             currentNumber = "";
 
@@ -168,10 +173,23 @@ public class Calculator extends Activity implements View.OnClickListener {
             txtResults.setText(stringNumberAtLeft);
             calculationsString = stringNumberAtLeft;
 
-        } else {
+            }
+        }
+        else {
             stringNumberAtLeft = currentNumber;
             currentNumber = "";
         }
         currentOperator = tappedOperator;
+    }
+
+    private void clearTapped(){
+        stringNumberAtLeft = "";
+        stringNumberAtRight = "";
+        calculationsResult = 0;
+        currentNumber = "";
+        currentOperator = null;
+        txtResults.setText("0");
+        calculationsString = "0";
+
     }
 }
